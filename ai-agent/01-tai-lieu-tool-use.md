@@ -181,4 +181,4 @@ def agent(user_input, tools, dispatch, max_steps=10):
 4. Khi tool báo lỗi, nên làm gì — crash hay trả lỗi về LLM? Vì sao?
 5. `max_steps` để làm gì?
 
-> Làm xong → mở `04-bai-tap-tool-use.md`. Hết bài tập đó là bạn đã **chạm tay vào Agent đầu tiên**.
+> Làm xong → mở `02-bai-tap-tool-use.md`. Hết bài tập đó là bạn đã **chạm tay vào Agent đầu tiên**.
