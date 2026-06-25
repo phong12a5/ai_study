@@ -32,8 +32,10 @@ class Agent:
                 tools=self.tools
             )
             msg = response.choices[0].message
-            
+
             if msg.tool_calls:
+                if msg.content:
+                    print(f"\n{msg.content}\n")
                 self.messages.append(msg)  # Store the assistant message with tool calls before adding tool results
                 for tool_call in msg.tool_calls:
                     tool_name = tool_call.function.name
@@ -61,7 +63,7 @@ class Agent:
                         print(f"Tool {tool_name} is not defined.")
                         self.messages.append({"role": "tool", "tool_call_id": tool_call.id, "content": f"Tool {tool_name} is not defined."})
             else:
-                print(f"Model response: {msg.content}")
+                print(f"\nKết luận: {msg.content}")
                 return msg.content
         
         return "Max steps reached without a final response."
