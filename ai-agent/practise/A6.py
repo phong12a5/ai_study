@@ -26,7 +26,7 @@ def nghien_cuu(query):
                     "parameters": {
                         "type": "object",
                         "properties": {
-                            "country": {"type": "string", "description": "Tên quốc gia cần tra cứu"}
+                            "country": {"type": "string", "description": "Tên quốc gia cần tra cứu, hỗ trợ: 'Việt Nam', 'Nhật Bản'"},
                         },
                         "required": ["country"]
                     },
