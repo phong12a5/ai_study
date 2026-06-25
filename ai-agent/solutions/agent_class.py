@@ -6,8 +6,10 @@
 Chạy: python solutions/agent_class.py
 """
 import json
+from dotenv import load_dotenv
 from openai import OpenAI
 
+load_dotenv()
 
 class Agent:
     def __init__(self, tools, dispatch, system="", model="gpt-4o", max_steps=10,
