@@ -139,16 +139,25 @@ if __name__ == "__main__":
 
 #output:
 
-# (venv) phongdang@Dell-ECS1250:~/ai_study/ai-agent$ python practise/A4.py 
-# Cho phép chạy gui_tien({'amount': 100, 'to_account': '12345678'})? [y/N] N 
-# Model response: Tôi không thể thực hiện việc gửi tiền cho bạn. Nếu bạn cần hỗ trợ hoặc có câu hỏi khác, hãy cho tôi biết nhé!
-# > agent: Tôi không thể thực hiện việc gửi tiền cho bạn. Nếu bạn cần hỗ trợ hoặc có câu hỏi khác, hãy cho tôi biết nhé!
-# (venv) phongdang@Dell-ECS1250:~/ai_study/ai-agent$ python practise/A4.py 
-# Cho phép chạy gui_tien({'amount': 100, 'to_account': '12345678'})? [y/N] y
-# User accepted calling tool: gui_tien
-# Calling tool: gui_tien with arguments: {'amount': 100, 'to_account': '12345678'}
-# Sent 100USD to account: 12345678
-# Result from gui_tien: None
-# Model response: Tôi đã gửi 100 USD tới số tài khoản 12345678 thành công.
-# > agent: Tôi đã gửi 100 USD tới số tài khoản 12345678 thành công.
-# (venv) phongdang@Dell-ECS1250:~/ai_study/ai-agent$ 
+# (venv) phongdang@Dell-ECS1250:~/ai_study/ai-agent$ python practise/A6.py 
+# Calling tool: nghien_cuu with arguments: {'query': 'Tổng dân số của Việt Nam là bao nhiêu?'}
+# Calling tool: tra_cuu with arguments: {'country': 'Việt Nam'}
+# Result from tra_cuu: Thủ đô: Hà Nội, Dân số: 97 triệu
+
+# Kết luận: Tổng dân số của Việt Nam là 97 triệu người.
+# Result from nghien_cuu: Tổng dân số của Việt Nam là 97 triệu người.
+# Calling tool: nghien_cuu with arguments: {'query': 'Tổng dân số của Nhật Bản là bao nhiêu?'}
+# Calling tool: tra_cuu with arguments: {'country': 'Nhật Bản'}
+# Result from tra_cuu: Thủ đô: Tokyo, Dân số: 126 triệu
+
+# Kết luận: Tổng dân số của Nhật Bản là khoảng 126 triệu người.
+# Result from nghien_cuu: Tổng dân số của Nhật Bản là khoảng 126 triệu người.
+# Calling tool: tinh_toan with arguments: {'query': '97 triệu + 126 triệu'}
+# Calling tool: cong_hai_so with arguments: {'a': 97000000, 'b': 126000000}
+# Result from cong_hai_so: 223000000
+
+# Kết luận: 97 triệu + 126 triệu = 223 triệu.
+# Result from tinh_toan: 97 triệu + 126 triệu = 223 triệu.
+
+# Kết luận: Tổng dân số của Việt Nam và Nhật Bản là 223 triệu người.
+# > agent: Tổng dân số của Việt Nam và Nhật Bản là 223 triệu người.

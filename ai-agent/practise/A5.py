@@ -102,7 +102,8 @@ if __name__ == "__main__":
         ],
         dispatch=dispatch,
         system_prompt="Trước mỗi hành động, ghi 'Suy nghĩ: ...' giải thích vì sao chọn tool.",
-        max_steps=5
+        max_steps=5,
+        verbose=True
     )
 
     user_input = "Tổng dân số của Việt Nam và Nhật Bản là bao nhiêu?"
