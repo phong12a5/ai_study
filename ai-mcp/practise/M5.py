@@ -1,76 +1,42 @@
-"""
-cd to the `examples/snippets` directory and run:
-    uv run completion-client
-"""
+"""M5: MCP client connects to local server.py via stdio."""
 
 import asyncio
-import os
+from pathlib import Path
+import sys
 
 from mcp import ClientSession, StdioServerParameters
 from mcp.client.stdio import stdio_client
-from mcp.types import PromptReference, ResourceTemplateReference
 
-# Create server parameters for stdio connection
+
+SERVER_PATH = Path(__file__).with_name("server.py")
+
 server_params = StdioServerParameters(
-    command="uv",  # Using uv to run the server
-    args=["run", "server", "completion", "stdio"],  # Server with completion support
-    env={"UV_INDEX": os.environ.get("UV_INDEX", "")},
+    command=sys.executable,
+    args=[str(SERVER_PATH)],
 )
 
 
-async def run():
-    """Run the completion client example."""
+async def run() -> None:
+    """Start local MCP server, list tools, and call tra_cuu."""
     async with stdio_client(server_params) as (read, write):
         async with ClientSession(read, write) as session:
-            # Initialize the connection
             await session.initialize()
 
-            # List available resource templates
-            templates = await session.list_resource_templates()
-            print("Available resource templates:")
-            for template in templates.resourceTemplates:
-                print(f"  - {template.uriTemplate}")
+            tools = await session.list_tools()
+            print("Tools:")
+            for tool in tools.tools:
+                print(f"  - {tool.name}")
 
-            # List available prompts
-            prompts = await session.list_prompts()
-            print("\nAvailable prompts:")
-            for prompt in prompts.prompts:
-                print(f"  - {prompt.name}")
-
-            # Complete resource template arguments
-            # if templates.resourceTemplates:
-            #     template = templates.resourceTemplates[0]
-            #     print(f"\nCompleting arguments for resource template: {template.uriTemplate}")
-
-            #     # Complete without context
-            #     result = await session.complete(
-            #         ref=ResourceTemplateReference(type="ref/resource", uri=template.uriTemplate),
-            #         argument={"name": "owner", "value": "model"},
-            #     )
-            #     print(f"Completions for 'owner' starting with 'model': {result.completion.values}")
-
-            #     # Complete with context - repo suggestions based on owner
-            #     result = await session.complete(
-            #         ref=ResourceTemplateReference(type="ref/resource", uri=template.uriTemplate),
-            #         argument={"name": "repo", "value": ""},
-            #         context_arguments={"owner": "modelcontextprotocol"},
-            #     )
-            #     print(f"Completions for 'repo' with owner='modelcontextprotocol': {result.completion.values}")
-
-            # Complete prompt arguments
-            # if prompts.prompts:
-            #     prompt_name = prompts.prompts[0].name
-            #     print(f"\nCompleting arguments for prompt: {prompt_name}")
-
-            #     result = await session.complete(
-            #         ref=PromptReference(type="ref/prompt", name=prompt_name),
-            #         argument={"name": "style", "value": ""},
-            #     )
-            #     print(f"Completions for 'style' argument: {result.completion.values}")
+            result = await session.call_tool("tra_cuu", {"country": "Việt Nam"})
+            print("\nKết quả tra_cuu('Việt Nam'):")
+            for item in result.content:
+                text = getattr(item, "text", None)
+                if text is not None:
+                    print(f"  {text}")
 
 
-def main():
-    """Entry point for the completion client."""
+def main() -> None:
+    """Entry point for the M5 client."""
     asyncio.run(run())
 
 
